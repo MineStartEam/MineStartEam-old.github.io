@@ -1,0 +1,614 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-Hans" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@0.8.3/autoload.js"></script>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="XiaoQu">
+  <meta name="keywords" content="">
+  
+  <title>教你如何使用宝塔面板搭建图床 - MineStart&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>MineStart's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                博文
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/archives/">
+                    <i class="iconfont icon-archive-fill"></i>
+                    归档
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/">
+                    <i class="iconfont icon-tags-fill"></i>
+                    标签
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/">
+                    <i class="iconfont icon-category-fill"></i>
+                    分类
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-comment"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img-1/%E5%B0%81%E9%9D%A2.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="教你如何使用宝塔面板搭建图床">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-23 23:19" pubdate>
+        August 23, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">教你如何使用宝塔面板搭建图床</h1>
+            
+            <div class="markdown-body">
+              
+    <div id="aplayer-BQgjGWZH" class="aplayer aplayer-tag-marker meting-tag-marker"
+         data-id="1859245776" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="false" data-listmaxheight="340px" data-preload="none" data-theme="#ad7a86"
+    ></div>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>相信大家有过在网上上传过图像的吧？ 又称’图床’ 。但是你知道吗？ 有可能你上传的东西会被别人盗用。<br>你的学习资料..啊呸 你的要放在图床上的东西就泄露了</p>
+<p>今天就给大家带来一个名为”lsky-pro”的图床，开源项目。但是他本身就不错了</p>
+<div class="note note-success">
+            <p>求求大家了，为了制作这期视频我花费了一个通宵制作这个博客，请一键三连支持UP！</p>
+          </div>
+
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="服务器购买"><a href="#服务器购买" class="headerlink" title="服务器购买"></a>服务器购买</h2><div class="note note-warning">
+            <p>我们使用这个服务器是1C2G 50Mbps的宽带 40GSSD。这里推荐腾讯云轻量应用服务器，价格比CVM便宜很多，但无法集群和更换IP</p>
+          </div>
+
+<p>挑选的服务器</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/act/campus?utm_source=qcloud&utm_medium=head&utm_campaign=campus&fromSource=gwzcw.1293314.1293314.1293314&cps_key=825b2fa50ccba7d3668554b568acab71">本站专属腾讯云秒杀链接（可低价购买轻量应用服务器）</a></li>
+<li><a target="_blank" rel="noopener" href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=ezeb480t">本站专属阿里云秒杀链接（可低价购买轻量应用服务器）</a></li>
+</ul>
+<p>这里我推荐：</p>
+<p>个人:</p>
+<div class="note note-success">
+            <ul><li>CPU：使用1C以上</li><li>内存：在2G以上</li><li>硬盘：在40GB（看个人的选择）</li><li>宽带：在10-20Mbps就好</li></ul>
+          </div>
+
+
+<p>多人：</p>
+<div class="note note-success">
+            <ul><li>CPU：使用2C以上</li><li>内存：使用4G以上</li><li>硬盘：使用50GB以上（还是看个人选择）</li><li>宽带：50Mbps以上</li></ul>
+          </div>
+
+<p>图床最吃公网宽带，也取决于的网络加载快慢的因素</p>
+<p>仅代表个人的意见！！</p>
+<h2 id="准备工具辅助搭建"><a href="#准备工具辅助搭建" class="headerlink" title="准备工具辅助搭建"></a>准备工具辅助搭建</h2><p>我这里就站在新手的角度，用最简单的方法。如果您是大佬，不喜勿喷！谢谢</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://putty.org/">PuTTy</a></li>
+<li><a target="_blank" rel="noopener" href="https://bt.cn/">宝塔面板</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wisp-x/lsky-pro/tags">lsky-pro图床工具</a></li>
+</ul>
+<h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><h2 id="连接SSH"><a href="#连接SSH" class="headerlink" title="连接SSH"></a>连接SSH</h2><p>首先需要你的公网IP，比如我的服务器为47.362.xx.xxx</p>
+<p>打开<code>PuTTy</code>这个连接ssh软件<br><img src="/img/img-1/0.png" srcset="/img/loading.gif" lazyload></p>
+<p>在<code>Host Name (or IP Address)</code>下面的地址栏输入你的公网IP<br>如下图<br><img src="/img/img-1/1.png" srcset="/img/loading.gif" lazyload></p>
+<p>接着SSH会让你输密码，此时输密码会隐藏你输入的密码</p>
+<p><img src="/img/img-1/2.png" srcset="/img/loading.gif" lazyload></p>
+<p>输完密码后就可以控制你的服务器了<br><img src="/img/img-1/3.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="安装宝塔到服务器"><a href="#安装宝塔到服务器" class="headerlink" title="安装宝塔到服务器"></a>安装宝塔到服务器</h2><p>首先打开<a target="_blank" rel="noopener" href="https://bt.cn/">宝塔官网</a>后</p>
+<p>点击<code>立即安装</code><br><img src="/img/img-1/4.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后往下找到你的服务器系统后，点复制。然后粘贴到你的服务器</p>
+<p><img src="/img/img-1/5.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="安装链接"><a href="#安装链接" class="headerlink" title="安装链接"></a>安装链接</h3><p>Liunx:</p>
+<p>Centos安装命令:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">yum install -<span class="hljs-keyword">y</span> wget &amp;&amp; wget -O install.<span class="hljs-keyword">sh</span> http://download.bt.<span class="hljs-keyword">cn</span>/install/install_6.<span class="hljs-number">0</span>.<span class="hljs-keyword">sh</span> &amp;&amp; <span class="hljs-keyword">sh</span> install.<span class="hljs-keyword">sh</span><br></code></pre></td></tr></table></figure>
+<p>Ubuntu/Deepin安装命令:</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -O install.sh http:<span class="hljs-regexp">//</span>download.bt.cn<span class="hljs-regexp">/install/i</span>nstall-ubuntu_6.<span class="hljs-number">0</span>.sh &amp;&amp; sudo bash install.sh<br></code></pre></td></tr></table></figure>
+<p>Debian安装命令：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -O install.sh http:<span class="hljs-regexp">//</span>download.bt.cn<span class="hljs-regexp">/install/i</span>nstall-ubuntu_6.<span class="hljs-number">0</span>.sh &amp;&amp; bash install.sh<br></code></pre></td></tr></table></figure>
+<p>Fedora安装命令:</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -O install.sh http:<span class="hljs-regexp">//</span>download.bt.cn<span class="hljs-regexp">/install/i</span>nstall_6.<span class="hljs-number">0</span>.sh &amp;&amp; bash install.sh<br></code></pre></td></tr></table></figure>
+
+<p>我们点复制后粘贴到PuTTy里</p>
+<p>如图：<br><img src="/img/img-1/6.png" srcset="/img/loading.gif" lazyload><br>然后回车</p>
+<p>等待一会要你输入<code>Y</code> or <code>N</code></p>
+<p><code>Do you want to install Bt-Panel to the /www directory now?(y/n):</code><br><img src="/img/img-1/7.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们输入<code>Y</code>就好了<br><img src="/img/img-1/8.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后系统会继续执行指令</p>
+<h3 id="进入宝塔面板"><a href="#进入宝塔面板" class="headerlink" title="进入宝塔面板"></a>进入宝塔面板</h3><p>安装好后会发现有连接宝塔面板的链接<br><img src="/img/img-1/9.png" srcset="/img/loading.gif" lazyload></p>
+<p>就是宝塔外网和内网地址，我们复制到浏览器后回车</p>
+<p>然后就输入账号和密码。（账号和密码在PuTTY里）<br><img src="/img/img-1/10.png" srcset="/img/loading.gif" lazyload></p>
+<p>进入宝塔面板后，让我们安装<code>LNMP</code>套件 我们这里选择：</p>
+<ul>
+<li>Nginx 1.21</li>
+<li>MySQL 5.6</li>
+<li>Pure-Ftpd 1.0.4.9</li>
+<li>PHP 7.2</li>
+<li>phpMyAdmin 4.4</li>
+</ul>
+<p><img src="/img/img-1/11.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后点立即安装，安装时间较长。等待即可</p>
+<p>安装好了后我们进入安装图床教程。</p>
+<h2 id="开始部署图床"><a href="#开始部署图床" class="headerlink" title="开始部署图床"></a>开始部署图床</h2><h3 id="安装PHP-fileinfo扩展"><a href="#安装PHP-fileinfo扩展" class="headerlink" title="安装PHP-fileinfo扩展"></a>安装PHP-fileinfo扩展</h3><p>依次点击<code>软件商店</code>-<code>已安装</code>-<code>PHP7.2设置</code>-<code>安装扩展</code>-<code>fileinfo</code>安装即可<br><img src="/img/img-1/12.png" srcset="/img/loading.gif" lazyload></p>
+<p>安装完后记得重载配置和重启哦~<br><img src="/img/img-1/13.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="添加网站"><a href="#添加网站" class="headerlink" title="添加网站"></a>添加网站</h3><p>依次点击<code>网站</code>-<code>添加网站</code><br><img src="/img/img-1/14.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="下载图床"><a href="#下载图床" class="headerlink" title="下载图床"></a>下载图床</h3><p>依次点击<code>文件</code>-<code>远程下载</code>-<code>URL地址填写:</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/wisp-x/</span>lsky-pro<span class="hljs-regexp">/archive/</span>refs<span class="hljs-regexp">/tags/</span>v1.<span class="hljs-number">6.3</span>.tar.gz<br></code></pre></td></tr></table></figure>
+<p><img src="/img/img-1/15.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后点击下载</p>
+<h3 id="解压图床并粘贴到网站根目录"><a href="#解压图床并粘贴到网站根目录" class="headerlink" title="解压图床并粘贴到网站根目录"></a>解压图床并粘贴到网站根目录</h3><p>点击下载好的压缩包-<code>右击</code>-<code>解压</code>,接着我们点击解压后的文件夹-点击<code>文件名左边的选择框</code>，然后点击<code>剪切</code>。回到<code>网页目录</code>-<code>粘贴</code>即可</p>
+<p><img src="/img/img-1/16.png" srcset="/img/loading.gif" lazyload><br><img src="/img/img-1/17.png" srcset="/img/loading.gif" lazyload><br><img src="/img/img-1/18.png" srcset="/img/loading.gif" lazyload><br><img src="/img/img-1/19.png" srcset="/img/loading.gif" lazyload><br><img src="/img/img-1/20.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="设置运行目录为Public"><a href="#设置运行目录为Public" class="headerlink" title="设置运行目录为Public"></a>设置运行目录为Public</h3><p>依次点击-<code>网站</code>-<code>设置</code>-<code>网站目录</code>-<code>运行目录</code>-<code>/public</code>,最后记得保存<br><img src="/img/img-1/21.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="配置Rewrite规则"><a href="#配置Rewrite规则" class="headerlink" title="配置Rewrite规则"></a>配置Rewrite规则</h3><p>依次点击<code>网站</code>-<code>设置</code>-<code>伪静态</code></p>
+<p>输入以下代码:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs elixir">location / &#123; if (!-e <span class="hljs-variable">$request_filename</span>) &#123;<br><br>rewrite ^(.*)<span class="hljs-variable">$ </span>/index.php?s=<span class="hljs-variable">$1</span> last; <span class="hljs-keyword">break</span>;<br><br>&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/img/img-1/22.png" srcset="/img/loading.gif" lazyload></p>
+<p>输入代码：<br><img src="/img/img-1/23.png" srcset="/img/loading.gif" lazyload></p>
+<p>好了记得保存哦~</p>
+<h3 id="添加SSL"><a href="#添加SSL" class="headerlink" title="添加SSL"></a>添加SSL</h3><h4 id="什么是SSL？"><a href="#什么是SSL？" class="headerlink" title="什么是SSL？"></a>什么是SSL？</h4><p>A:SSL (Secure Sockets Layer 安全套接字协议 ),及其继任者 传输层安全 （Transport Layer Security，TLS）是为 网络通信 提供安全及 数据完整性 的一种安全协议。. TLS与SSL在 传输层 与 应用层 之间对网络连接进行加密。. 中文名.</p>
+<h4 id="SSL如何获取？"><a href="#SSL如何获取？" class="headerlink" title="SSL如何获取？"></a>SSL如何获取？</h4><p>A:在宝塔面板可以申请SSL。但我这里是腾讯云的域名，直接在DNSPod申请就好了</p>
+<h4 id="SSL部署"><a href="#SSL部署" class="headerlink" title="SSL部署"></a>SSL部署</h4><p>首先下载SSL证书，解压压缩包，打开Nginx后看到后缀名为crt和key的文件<br>那就是你的证书</p>
+<p><img src="/img/img-1/24.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们把它们添加到宝塔面板上</p>
+<p><img src="/img/img-1/25.png" srcset="/img/loading.gif" lazyload></p>
+<p>接着打开<code>.key</code>文件，把他全部都复制到宝塔<code>秘钥KEY</code>里<br><code>.crt</code>文件复制到宝塔<code>证书(PEM格式)</code><br><img src="/img/img-1/26.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后保存打开<code>强制HTTPS</code></p>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>输入你的域名进入安装环节</p>
+<p><img src="/img/img-1/27.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后点下一步</p>
+<p>这里需要你数据库名、用户名、密码来完善你的图床<br><img src="/img/img-1/28.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/img-1/29.png" srcset="/img/loading.gif" lazyload></p>
+<p>根据自己的数据库来填写<br><img src="/img/img-1/30.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后点击配置数据库</p>
+<p>到这一步就完成了<br><img src="/img/img-1/31.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>如果你有不懂的，不会的。可以加我QQ：1754886979<br>记得给我视频来个大大的三连！<br>你们的三连是我前进的动力！</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Server/">Server</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，转载请注明。谢谢！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/Hexo-Fluid-Blog/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用Hexo搭建属于你自己的博客</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/4a17b156/">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <div id="cc-myssl-id"> <img src="https://static.myssl.com/res/images/myssl-id3.png" srcset="/img/loading.gif" lazyload onclick="pic()" alt="" style="max-height:50px;display:block;margin:0 auto"> <script> function pic() { window.open("https://myssl.com/seal/detail?domain=blog.minestart.cn", "_blank", "left=pixels,location=yes,width=460,height=869"); }       </script> </div> Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> Themed with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <a href="https://icp.gov.moe/" target="_blank">萌ICP备</a><a href="https://icp.gov.moe?keyword=20211122" target="_blank">20211122号</a> <br> <span id="span"></span> <script type="text/javascript"> function runtime(){ X = new Date("10/12/2021 20:47:00"); Y = new Date(); T = (Y.getTime()-X.getTime()); M = 24*60*60*1000; a = T/M; A = Math.floor(a); b = (a-A)*24; B = Math.floor(b); c = (b-B)*60; C = Math.floor((b-B)*60); D = Math.floor((c-C)*60); span.innerHTML = "本站不正常运行了: "+A+"天"+B+"小时"+C+"分"+D+"秒" } setInterval(runtime, 1000); </script> <i class="iconfont icon-love"></i> <a href="https://status.minestart.cn" target="_blank">监控状态页面</a> <br> 镜像站点: <a href="https://blog.minestart.cn" target="_blank">CloudFlare (本站)</a> | <a href="https://imxiaoqu.github.io" target="_blank">GitHub</a> | <a href="https://imxiaoqu.coding.net" target="_blank">Coding</a> <br> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/qipao.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/boom.js"></script>
+<script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
